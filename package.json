@@ -15,10 +15,15 @@
     "babel-polyfill": "^6.23.0",
     "material-ui": "^0.17.1",
     "offline-plugin": "^4.6.2",
+    "pify": "^2.3.0",
+    "pixi.js": "^4.5.1",
+    "prop-types": "^15.5.8",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-tap-event-plugin": "^2.0.0",
-    "redbox-react": "^1.3.4"
+    "redbox-react": "^1.3.4",
+    "shake.js": "^1.2.2",
+    "styled-components": "^1.4.5"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
