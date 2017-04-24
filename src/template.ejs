@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1" />
+    <meta name="theme-color" content="#51c7ff" />
+    <title>Yay!</title>
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Icons -->
+    <link rel="icon" href="images/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="images/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="icon" href="images/favicon-62.png" sizes="62x62" type="image/png" />
+
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-size: 16px;
+        overflow: hidden;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      [data-reactroot] {
+        height: 100%;
+      }
+
+      @media (min-width: 25em) {
+        html {
+          font-size: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400));
+        }
+      }
+    </style>
+
+    <!-- Styles -->
+    <% for (const file of htmlWebpackPlugin.files.css) { %><link rel="stylesheet" href="<%= file %>" /><% } %>
+  </head>
+  <body>
+    <div id="app" style="height: 100%"></div>
+
+    <!-- Scripts -->
+    <% for (const file of htmlWebpackPlugin.files.js) { %><script src="<%= file %>"></script><% } %>
+  </body>
+</html>
