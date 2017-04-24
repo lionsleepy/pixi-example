@@ -1,9 +1,15 @@
-import pify from 'pify';
-import {loader, Application, Graphics} from 'pixi.js';
+import {extras, Application, Texture} from 'pixi.js';
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
+const {AnimatedSprite} = extras;
+
 const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
+const Image = styled.img`
   width: 100vw;
   height: 100vh;
 `;
@@ -12,13 +18,16 @@ class App extends Component {
   state = {
     width: 0,
     height: 0,
+    currentImage: 0,
   };
 
   componentDidMount() {
-    const app = new Application(this.state.width, this.state.height, {view: this.el});
+    const {state: {width, height}} = this;
+
+    const app = new Application(width, height, {view: this.el});
     this.app = app;
 
-    // 나중에 DOM에 박을땐: document.body.appendChild(app.view);
+    // 나중에 DOM에 박을땐 `view` 옵션 빼고: document.body.appendChild(app.view);
 
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
@@ -31,22 +40,21 @@ class App extends Component {
   }
 
   draw() {
-    const graphics = new Graphics();
+    const frames = [
+      'sprites/',
+    ].map((elem) => Texture.fromImage(elem));
 
-    graphics.beginFill(0xFF3300);
-    graphics.lineStyle(4, 0xffd900, 1);
+    const anim = new AnimatedSprite(frames);
 
-    graphics.moveTo(50, 50);
-    graphics.lineTo(250, 50);
-    graphics.lineTo(100, 100);
-    graphics.lineTo(50, 50);
-    graphics.endFill();
+    anim.animationSpeed = 0.5;
+    anim.play();
 
-    this.app.stage.addChild(graphics);
+    this.app.stage.addChild(anim);
   }
 
   handleResize = () => {
     const {innerWidth: width, innerHeight: height} = window;
+
     this.setState({width, height});
 
     if (this.app) {
@@ -55,8 +63,15 @@ class App extends Component {
   };
 
   render() {
+    const {state: {currentImage}} = this;
+    const images = [
+      'p-0.jpg',
+      'p-1.jpg',
+    ];
+
     return (
       <Wrapper>
+        <Image src={images[currentImage]} />
         <canvas
           ref={(el) => (this.el = el)}
           width={this.state.width}
